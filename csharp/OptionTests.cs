@@ -15,35 +15,16 @@ namespace Functional
             // 1) Remove this line
             None<T>()
             // 2) Uncomment the following and Fill in the blanks
-            //input.Match(
-            //    Some: Some<T>(i => f),
-            //    None: () => None<T>()
-            //)
+            // input.Match(
+            //     Some: i => ______,
+            //     None: () => ______
+            // )
             ;
 
         // Map :: Option<A> -> (A -> B) -> Option<B>
-        public static Option<String> Map<T>(this Option<T> input, Func<T, string> f) =>
-            // This will help you start out
-            // 1) Remove this line
-            //None<T>()
-            // 2) Uncomment the following and Fill in the blanks
-            input.Match(
-               Some: i => Some<String>(f(i)),
-               None: () => None<String>()
-            )
-            ;
 
         // Bind :: Option<A> -> (A -> Option<B>) -> Option<B>
-        public static Option<String> Bind<T>(this Option<T> input, Func<T, string> f) =>
-            // This will help you start out
-            // 1) Remove this line
-            //None<T>()
-            // 2) Uncomment the following and Fill in the blanks
-            input.Match(
-               Some: i => Some<String>(f(i)),
-               None: () => None<String>()
-            )
-            ;
+
     }
 }
 
@@ -51,40 +32,38 @@ namespace csharp
 {
     public class OptionFilterTests
     {
-        //[Fact]
+        [Fact]
         public void Equality()
         {
-            // Assert.Equal(Some(1), Some(1));
-            // Assert.Equal(Some(Some(1)), Some(Some(1)));
-            // Assert.Equal(None<int>(), None<int>());
+            Assert.Equal(Some(1), Some(1));
+            Assert.Equal(Some(Some(1)), Some(Some(1)));
+            Assert.Equal(None<int>(), None<int>());
 
-            // Assert.NotEqual(Some(1), None<int>());
-            // Assert.NotEqual(Some(1), Some(2));
-            // Assert.NotEqual(Some(Some(1)), Some(Some(2)));
-            // Assert.NotEqual(Some(Some(1)), Some(None<int>()));
+            Assert.NotEqual(Some(1), None<int>());
+            Assert.NotEqual(Some(1), Some(2));
+            Assert.NotEqual(Some(Some(1)), Some(Some(2)));
+            Assert.NotEqual(Some(Some(1)), Some(None<int>()));
 
         }
-        //[Fact]
+        [Fact]
         public void Filter_Evens()
         {
             var result_evens = Some(2)
                             // Uncomment the following once you've implemented Filter
-                            .Filter(i => i % 2 == 0)
+                            // .Filter(i => i % 2 == 0)
                             ;
-            //  Console.WriteLine($"result_evens:{result_evens}");
-            //  Assert.Equal(Some(2), result_evens);
+            // Assert.Equal(Some(2), result_evens);
         }
-        //[Fact]
+        [Fact]
         public void Filter_Odds()
         {
             var result_odds = Some(2)
                             // Uncomment the following once you've implemented Filter
-                             .Filter(i => i % 2 != 1)
+                            // .Filter(i => i % 2 == 0)
                             ;
-            // Console.WriteLine($"result_odds:{result_odds}");
             // Assert.Equal(None<int>(), result_odds);
         }
-        //[Fact]
+        [Fact]
         public void Filter_None()
         {
             var always_true = None<string>()
@@ -107,30 +86,27 @@ namespace csharp
         {
             var result = Some(1)
                             // Uncomment the following once you've implemented Map
-                             .Map(i => $"Value: {i.ToString()}")
+                            // .Map(i => $"Value: {i}")
                             ;
-            Console.WriteLine($"Map_Int_to_String:{result}");
-            Assert.Equal(Some("Value: 1"), result);
+            // Assert.Equal(Some("Value: 1"), result);
         }
         [Fact]
         public void Map_None()
         {
             var result = None<string>()
                             // Uncomment the following once you've implemented Map
-                             .Map(i => $"Value: {i}")
+                            // .Map(i => $"Value: {i}")
                             ;
-            Console.WriteLine($"Map_None:{result}");
-            Assert.Equal(None<string>(), result);
+            // Assert.Equal(None<string>(), result);
         }
-        //[Fact]
+        [Fact]
         public void Map_Nested()
         {
             var result_even = Some(2)
                             // Uncomment the following once you've implemented Map
-                            //.Map(i => i % 2 == 0 ? Some(Some<string>(i.ToString())) : Some(Some(i.ToString()));
+                            // .Map(i => i % 2 == 0 ? Some(i.ToString()) : None<string>())
                             ;
-             //Console.WriteLine($"Map_Nested result_even:{result_even}");
-             //Assert.Equal(Some(Some("2")), result_even);
+            // Assert.Equal(Some(Some("2")), result_even);
 
             var result_odd = Some(1)
                             // Uncomment the following once you've implemented Map
@@ -147,27 +123,25 @@ namespace csharp
         {
             var result = Some(1)
                             // Uncomment the following once you've implemented Map
-                             .Bind(i => $"Value: {i}");
+                            // .Bind(i => Some($"Value: {i}"))
                             ;
-            Console.WriteLine($"Bind_Int_to_String:{result}");
-            Assert.Equal(Some("Value: 1"), result);
+            // Assert.Equal(Some("Value: 1"), result);
         }
         [Fact]
         public void Bind_None()
         {
             var result = None<string>()
                             // Uncomment the following once you've implemented Map
-                            .Bind(i => "" );
+                            // .Bind(i => Some($"Value: {i}"))
                             ;
-             Console.WriteLine($"Bind_None:{result}");
-             Assert.Equal(None<string>(), result);
+            // Assert.Equal(None<string>(), result);
         }
-        //[Fact]
+        [Fact]
         public void Bind_Nested()
         {
             var result_even = Some(2)
                             // Uncomment the following once you've implemented Map
-                             //.Bind(i => i % 2 == 0 ? Some(i.ToString()) : None<string>())
+                            // .Bind(i => i % 2 == 0 ? Some(i.ToString()) : None<string>())
                             ;
             // Assert.Equal(Some("2"), result_even);
 
